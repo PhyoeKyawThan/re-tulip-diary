@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        *{
+            width: 100%;
+            margin: auto;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body{
+            height: 100%;
+        }
+
+        .container{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container form{
+            height: fit-content;
+            width: 40%;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: rgba(56, 42, 42, 0.363);
+        }
+
+        @media screen and (max-width: 600px) {
+            .container form{
+                width: 90%;
+            }
+        }
+        form h1{
+            margin: 10px auto;
+            width: fit-content;
+        }
+
+        form input{
+            padding: 10px;
+            border: 1px solid grey;
+            margin: 10px auto;
+            border-radius: 10px;
+        }
+
+        form label{
+            font-weight: bold;
+        }
+
+        form a{
+            font-family: monospace;
+            text-align: right;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <h1>Register Here</h1>
+            <div class="message" id="message"></div>
+            <div class="username">
+                <label for="username">Enter your full name* </label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="email">
+                <label for="email">Enter your email* </label>
+                <input type="email" name="email" id="email">
+            </div>
+            <div class="password">
+                <label for="password">Set your password* </label>
+                <input type="password" name="password" id="password">
+            </div>
+            <div class="options">
+                <input type="button" value="Sign up" id="signup">
+                <a href="">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        const username = document.getElementById("username");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const message = document.getElementById("message");
+        const signup_btn = document.getElementById("signup");
+
+        signup_btn.addEventListener("click", ()=>{
+            const signup_data = {
+                username: username.value,
+                email: email.value, 
+                password: password.value
+            }
+
+            fetch("/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(signup_data)
+            }).then( response => response.json() )
+            .then( response_data => {
+                if( response_data.status == 200 ){
+                    message.style.color = "green";
+                    message.innerText = "Successfully Created!";
+                }else{
+                    message.style.color = "red";
+                    message.innerText = response_data.message;
+                }
+            })
+        })
+    </script>
+</body>
+</html>

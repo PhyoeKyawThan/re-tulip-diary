@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, jsonify, current_app
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 import os
 actions = Blueprint("actions", __name__)
 
@@ -8,7 +8,7 @@ def allowed_file(filename: str):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@actions.route("/upload_image")
+@actions.route("/upload_image", methods=["POST", "GET"])
 def upload_image():
     """
     Request data: formData
@@ -18,14 +18,14 @@ def upload_image():
     if request.method == "POST":
         image_type = request.form["image_type"]
         # check file is exist or not 
-        if "profile_image" or "post_image" not in request.files:
+        if "image" not in request.files:
             return jsonify({
                 "status": 404,
                 "message": "File Not Found In Request Parameters"
             })
         # if profile is profile image
         if image_type == "profile_image":
-            profile_image = request.files["profile_image"]
+            profile_image = request.files["image"]
             if profile_image and allowed_file(profile_image.filename):
                 filename = secure_filename(profile_image.filename)
                 profile_image.save(os.path.join(current_app.config["PROFILE_DIR"], filename))
@@ -38,7 +38,7 @@ def upload_image():
                 "message": "Unsupported file type"
             })
         # if image is post image 
-        post_image = request.files["post_image"]
+        post_image = request.files["image"]
         if post_image and allowed_file(post_image.filename):
             filename = secure_filename(post_image.filename)
             post_image.save(os.path.join(current_app.config["POST_DIR"], filename))

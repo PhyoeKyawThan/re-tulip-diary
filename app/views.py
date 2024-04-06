@@ -20,6 +20,10 @@ def profile():
         return redirect(url_for("views.login"))
     return render_template('profile.html', title='Profile')
 
+@views.route("/upload")
+def upload():
+    return render_template("upload.html")
+
 @views.route('/signup')
 def signup():
     return render_template("signup.html")

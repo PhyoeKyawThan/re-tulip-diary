@@ -27,7 +27,7 @@
             formData.append('image_type', document.getElementById('imageType').value);
             formData.append('image', document.getElementById('image').files[0]);
 
-            fetch('/upload_image', {
+            fetch('/action/upload_image', {
                 method: 'POST',
                 body: formData
             })

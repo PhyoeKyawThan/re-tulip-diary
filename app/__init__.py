@@ -11,10 +11,12 @@ def create_app():
     # import blueprints
     from .views import views
     from .auth import auth
+    from .actions import actions
 
     # register the blueprints
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/auth")
+    app.register_blueprint(actions, url_prefix="/action")
 
     with app.app_context():
         db.create_all()

@@ -9,7 +9,7 @@ class User(db.Model):
     registered_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     password = db.Column(db.String(255), nullable=False)
     posts   = db.relationship("Post", backref="author", lazy=True)
-
+    
 class Post(db.Model):
     __tablename__ = "post"
     post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)

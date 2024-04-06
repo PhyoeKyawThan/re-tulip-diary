@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, session, redirect, url_for, render_template
 from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 
 auth = Blueprint("auth", __name__)
@@ -18,7 +19,7 @@ def signup():
         else:
             new_user = User(username = signup_data["username"],
                         email = signup_data["email"],
-                        password = signup_data["password"])
+                        password = generate_password_hash(signup_data["password"]))
             db.session.add(new_user)
             db.session.commit()
             db.session.close()
@@ -32,11 +33,22 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-
-        is_user = User.query.filter_by(email = email, password = password ).first()
+        is_user = User.query.filter_by(email = email).first() #check email is exists
         if is_user:
-            return redirect(url_for("index"))
+            # if email exist and check password 
+            if check_password_hash(is_user.password, password):
+                session["current_user"] = True
+                return redirect(url_for("views.index"))
+            return redirect(url_for("views.login", message="Username or Password Wrong"))
         else:
-            return redirect(url_for("login"))
+            return redirect(url_for("views.login", message="Email haven't registered Yet!"))
     else: 
         return render_template("errors/method_not_allowed.html")
+
+
+@auth.route("/logout")
+def logout():
+    if "current_user" in session:
+        session.pop("current_user")
+        return redirect(url_for("views.login"))
+    return redirect(url_for("views.login"))

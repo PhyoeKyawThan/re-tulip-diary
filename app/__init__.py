@@ -1,6 +1,5 @@
 from flask import Flask, config
 from flask_sqlalchemy import SQLAlchemy
-
 # define db for all file as global var
 db = SQLAlchemy()
 def create_app():
@@ -23,4 +22,3 @@ def create_app():
     
     # returning app
     return app
-

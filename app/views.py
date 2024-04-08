@@ -1,24 +1,27 @@
 from flask import Blueprint, render_template, redirect, url_for, session
-
+from .login_required import check_user
 views = Blueprint("views", __name__)
 
 @views.route('/')
 def index():
-    if "current_user" not in session:
-        return redirect(url_for("views.login"))
-    return render_template('index.html', title="HOME")
+    state, message = check_user()
+    if state:
+        return render_template('index.html', title="HOME")
+    return redirect(url_for("views.login", message=message))
 
 @views.route('/post-area')
 def post_area():
-    if "current_user" not in session:
-        return redirect(url_for("views.login"))
-    return render_template('post_area.html', title='Post Area')
+    state, message = check_user()
+    if state:
+        return render_template('post_area.html', title='Post Area')
+    return redirect(url_for("views.login", message=message))
 
 @views.route('/profile')
 def profile():
-    if "current_user" not in session:
-        return redirect(url_for("views.login"))
-    return render_template('profile.html', title='Profile')
+    state, message = check_user()
+    if state:
+        return render_template('profile.html', title='Profile')
+    return redirect(url_for("views.login", message=message))
 
 @views.route("/upload")
 def upload():

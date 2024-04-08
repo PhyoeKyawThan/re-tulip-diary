@@ -37,7 +37,11 @@ def login():
         if is_user:
             # if email exist and check password 
             if check_password_hash(is_user.password, password):
-                session["current_user"] = True
+                session["current_user"] = {
+                    "user_id": is_user.user_id,
+                    "email": is_user.email,
+                    "password": is_user.password
+                }
                 return redirect(url_for("views.index"))
             return redirect(url_for("views.login", message="Username or Password Wrong"))
         else:

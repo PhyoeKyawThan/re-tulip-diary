@@ -1,94 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/04be286e27.js" crossorigin="anonymous"></script>
-    <title>{{ title }}</title>
+    <title>{% block title %}{% endblock %}</title>
     <style>
-        * {
+        *{
             width: 100%;
             margin: auto;
-            padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html,
-        body {
+        html, body{
             height: 100%;
-        }
-
-        .nav {
-            position: fixed;
-            bottom: 0;
-            height: fit-content;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 10px 0 10px black;
-        }
-
-        .nav .nav-item {
-            text-align: center;
-            padding: 10px;
-            background-color: rgba(10, 10, 9, 0.856);
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        .nav-item i {
-            width: fit-content;
-            padding: 10px;
-            color: white;
-            border-radius: 50%;
-        }
-
-        .nav-item i:hover {
-            background-color: white;
-            color: black;
         }
 
         .container{
             height: 100%;
-            background-color: rgba(255, 0, 0, 0.171);
-            overflow: scroll;
-            scroll-behavior: smooth;
+            background-color: rgb(240, 210, 210);
         }
+
+        .container .search{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        .search .header{
+            width: fit-content;
+            font-family: cursive;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .search .search-input{
+            width: 90%;
+        }
+
+        .search-input input{
+            border-radius: 20px;
+            border: none;
+            padding: 10px;
+        }
+        .container .nav{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgb(65, 22, 22);
+            box-shadow: 0 0 10px;
+        }
+
+        .nav .nav-item{
+            width: 30%;
+            text-align: center;
+            margin: 10px auto;
+        }
+
+        .nav-item i{
+            font-size: 1.5em;
+            color: rgba(15, 12, 12, 0.753);
+        }
+
+        .nav .comment{
+            position: relative;
+            top: -9px;
+        }
+        .comment .count{
+            position: relative;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(15, 12, 12, 0.753);
+            color: white;
+            padding: 2px;
+            border-radius: 40%;
+        }
+
+
+        .display{
+            height: 100%;
+            background-color: rgb(240, 210, 210);
+            overflow: scroll;
+        }
+
+
     </style>
 </head>
-
 <body>
-    <div class="nav">
-        <div class="nav-item"><i id="home" class="fa-solid fa-newspaper"></i></div>
-        <div class="nav-item"><i id="post-area" class="fa-solid fa-plus"></i></div>
-        <div class="nav-item"><i id="profile" class="fa-solid fa-user"></i></div>
+    <div class="container">
+        <div class="search">
+            <div class="header">
+                Tulip Diary
+            </div>
+            <div class="search-input">
+                <input type="search" name="search" id="search" placeholder="Search..">
+            </div>
+        </div>
+        <!-- search -->
+        <div class="nav">
+            <div class="nav-item" id="home">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <div class="nav-item comment" id="comment">
+                <small class="count">0</small>
+                <i class="fa-solid fa-comment" title="Comment"></i>
+            </div>
+            <div class="nav-item" id="profile">
+                <i class="fa-solid fa-user" title="Profile"></i>
+            </div>
+        </div>
+        <!-- nav -->
+
+        <div class="display" id="display">
+            
+        </div>
+        <!-- display -->
     </div>
-    <div class="container" id="container"></div>
     <script>
+        const tabs = document.querySelectorAll(".nav .nav-item");
         window.onload = ()=>{
-            fetch("/", {
-                    method: "GET"
-                }).then(response => response.text())
-                    .then(data => document.getElementById("container").innerHTML = data )
-                    .catch(error => console.error(error))
+            // default open home page starting window.onload
+            fetch("/home", {
+                    method: "GET",
+                })
+                .then( response => response.text() )
+                .then( data => {
+                    document.getElementById("display").innerHTML = data;
+                })
+                .catch( error => console.error("Error: ", error));
         }
-        const nav_items = document.querySelectorAll(".nav .nav-item i");
-        nav_items.forEach((nav) => {
-            nav.addEventListener("click", () => {
-                nav_items.forEach(item => item.style.backgroundColor = "rgba(10, 10, 9, 0.856)" );
-                nav.style.color = "black";
-                nav.style.backgroundColor = "white";
-                fetch("/" + (nav.id == "home" ? "": nav.id), {
-                    method: "GET"
-                }).then(response => response.text())
-                    .then(data => document.getElementById("container").innerHTML = data )
-                    .catch(error => console.error(error))
-            })
+        tabs.forEach( tab=> {
+            tab.addEventListener("click", (e)=>{
+                fetch("/" + tab.id, {
+                    method: "GET",
+                })
+                .then( response => response.text() )
+                .then( data => {
+                    document.getElementById("display").innerHTML = data;
+                })
+                .catch( error => console.error("Error: ", error));
+            });
         })
- 
     </script>
 </body>
-
 </html>

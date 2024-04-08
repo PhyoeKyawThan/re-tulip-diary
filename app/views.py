@@ -6,9 +6,15 @@ views = Blueprint("views", __name__)
 def index():
     state, message, user_id = check_user()
     if state:
-        return render_template('index.html', title="HOME")
+        return render_template('base.html', title="HOME")
     return redirect(url_for("views.login", message=message))
 
+@views.route("/home")
+def home():
+    state, message, user_id = check_user()
+    if state:
+        return render_template('index.html', title="HOME")
+    return redirect(url_for("views.login", message=message))
 @views.route('/post-area')
 def post_area():
     state, message, user_id = check_user()

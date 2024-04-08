@@ -15,6 +15,7 @@ def allowed_file(filename: str):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# comment (/action/comment)
 @actions.route("/comment", methods=["POST", "GET"])
 def comment():
     """
@@ -54,6 +55,7 @@ def comment():
         })
     return render_template("errors/method_not_allowed.html")
 
+# post(action/post_upload)
 @actions.route("/post_upload", methods=["POST", "GET"])
 def upload_post():
     """
@@ -86,7 +88,8 @@ def upload_post():
             db.session.close()
             return jsonify(response_data)
     return render_template("errors/method_not_allowed.html")
-
+#
+# image upload (/action/upload_image)
 @actions.route("/upload_image", methods=["POST", "GET"])
 def upload_image():
     """

@@ -15,10 +15,50 @@ def allowed_file(filename: str):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@actions.route("/comment", methods=["POST", "GET"])
+def comment():
+    """
+    request data type: json
+    parameters: text( str ), post_id( int )
+    response: json
+    summery: will take json data from user and the key comment to save in database by each user id and each post
+    """
+    # check user is already logged in or not
+    state, message, user_id = check_user()
+    # if user not logged in yet
+    if state == False:
+        return jsonify({
+            "status": 401,
+            "message": message
+        })
+    # check request method for security purpose
+    if request.method == "POST":
+        # get json data from user
+        comment_data = request.get_json()
+        # check whether the post is exists or not
+        post_exists = Post.query.filter_by(post_id = comment_data["post_id"]).first()
+        # if post is exists 
+        if post_exists:
+            # initial new comment
+            new_comment = Comment(text=comment_data["text"], post_id = comment_data["post_id"], user_id = user_id)
+            db.session.add(new_comment)
+            db.session.commit()
+            db.session.close()
+            return jsonify({
+                "status": 200, 
+                "message": "Commented"
+            })
+        return jsonify({
+            "status": 404,
+            "message": "Post Not Found"
+        })
+    return render_template("errors/method_not_allowed.html")
+
 @actions.route("/post_upload", methods=["POST", "GET"])
 def upload_post():
     """
     Request data: json 
+    patameters: caption
     response: json
     summery: will take post data from client and save into database
     """
@@ -51,6 +91,7 @@ def upload_post():
 def upload_image():
     """
     Request data: formData
+    parameters: image_type( str ), image( file ), post_id( int ) 
     response: json
     summery: will take image file and file type from client and save into each desire folder 
     """

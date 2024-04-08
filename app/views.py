@@ -27,6 +27,10 @@ def profile():
 def upload():
     return render_template("upload.html")
 
+@views.route("/comment")
+def comment():
+    return render_template("comment.html")
+
 @views.route('/signup')
 def signup():
     return render_template("signup.html")

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Form</title>
+</head>
+<body>
+    <h1>Comment Form</h1>
+    <form id="commentForm">
+        <label for="post_id">Post ID:</label>
+        <input type="number" id="post_id" name="post_id" required><br><br>
+        
+        <label for="text">Comment:</label><br>
+        <textarea id="text" name="text" required></textarea><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById("commentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            var post_id = document.getElementById("post_id").value;
+            var text = document.getElementById("text").value;
+
+            var data = {
+                "post_id": post_id,
+                "text": text
+            };
+
+            fetch("/action/comment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display response message
+                var responseDiv = document.getElementById("response");
+                responseDiv.innerHTML = "<p>Status: " + data.status + "</p><p>Message: " + data.message + "</p>";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -7,13 +7,12 @@ def check_user()->set:
     if session exists check the db with session creditical and return true if exists
     """
     if "current_user" in session:
-        print("Yes current user exists")
         current_user = session["current_user"]
         user = User.query.filter_by(user_id = current_user["user_id"],
                                     email = current_user["email"], 
                                     password = current_user["password"]).first()
         if user:
-            return (True, "User Found")
+            return (True, "User Found", user.user_id)
         else:
-            return (False, "Your using wrong user data to access through session")
-    return (False, "Your have to login first before access this content")
+            return (False, "Your using wrong user data to access through session", None)
+    return (False, "Your have to login first before access this content", None)

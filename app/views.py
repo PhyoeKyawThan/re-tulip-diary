@@ -4,21 +4,21 @@ views = Blueprint("views", __name__)
 
 @views.route('/')
 def index():
-    state, message = check_user()
+    state, message, user_id = check_user()
     if state:
         return render_template('index.html', title="HOME")
     return redirect(url_for("views.login", message=message))
 
 @views.route('/post-area')
 def post_area():
-    state, message = check_user()
+    state, message, user_id = check_user()
     if state:
         return render_template('post_area.html', title='Post Area')
     return redirect(url_for("views.login", message=message))
 
 @views.route('/profile')
 def profile():
-    state, message = check_user()
+    state, message, user_id = check_user()
     if state:
         return render_template('profile.html', title='Profile')
     return redirect(url_for("views.login", message=message))

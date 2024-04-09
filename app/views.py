@@ -27,7 +27,7 @@ def home():
                 "posted_date": post.posted_date
             }
             post_datas.append(data)
-        return render_template('index.html', posts=post_datas)
+        return render_template('index.html', posts=post_datas, profile_uri=User.query.filter_by( user_id = user_id).first().profile_uri)
     return redirect(url_for("views.login", message=message))
 @views.route('/post-area')
 def post_area():

@@ -5,7 +5,7 @@ class User(db.Model):
     __tablename__ = "user"
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(30), nullable= False)
-    profile_uri = db.Column(db.String(150), nullable=True)
+    profile_uri = db.Column(db.String(150), nullable=True, default="/static/images/profile/anonymous.png")
     email = db.Column(db.String(100), nullable=False)
     registered_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     password = db.Column(db.String(255), nullable=False)

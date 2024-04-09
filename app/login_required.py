@@ -15,4 +15,4 @@ def check_user()->set:
             return (True, "User Found", user.user_id)
         else:
             return (False, "Your using wrong user data to access through session", None)
-    return (False, "Your have to login first before access this content", None)
+    return (False, "Welcome Back ><", None)

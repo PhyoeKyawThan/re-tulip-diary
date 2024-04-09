@@ -106,7 +106,7 @@
             .then( response_data => {
                 if( response_data.status == 200 ){
                     message.style.color = "green";
-                    message.innerText = "Successfully Created!";
+                    window.location.href = "/login?message=" + response_data.message;
                 }else{
                     message.style.color = "red";
                     message.innerText = response_data.message;

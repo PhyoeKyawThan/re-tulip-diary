@@ -23,7 +23,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             db.session.close()
-            return jsonify({"status": 200})
+            return jsonify({"status": 200, "message": "Your Account Have Been Created! Login Here"})
     else:
         return jsonify({"status": 405})
 

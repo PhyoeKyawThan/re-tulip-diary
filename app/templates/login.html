@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Here</title>
     <style>
-        *{
+        * {
             width: 100%;
             margin: auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html, body{
+        html,
+        body {
             height: 100%;
         }
 
-        .container{
+        .container {
             height: 100%;
             display: flex;
         }
 
-        .container form{
+        .container form {
             width: 60%;
             padding: 50px;
             border-radius: 20px;
@@ -27,46 +30,53 @@
             box-shadow: 0 0 10px;
         }
 
-        form div{
+        form div {
             margin: 10px auto;
         }
 
-        form input{
+        form input {
             padding: 10px;
             border-radius: 10px;
             border: none;
             margin: 10px auto;
         }
 
-        .options input{
+        .options input {
             font-weight: bold;
             width: 60%;
             display: block;
         }
 
-        .options .register-account{
-        }
+        .options .register-account {}
     </style>
 </head>
+
 <body>
     <div class="container">
         <form action="/auth/login" method="post">
-            <h1>Welome Back ><</h1>
-            <div class="email">
-                <label for="email">Enter Your Email* </label>
-                <input type="email" name="email" id="email">
-            </div>
-            <div class="password">
-                <label for="password">Enter Your Password* </label>
-                <input type="password" name="password" id="password">
-            </div>
-            <div class="options">
-                <input type="submit" value="login">
-                <div class="register-account">
-                    Don't have account yet?<a href="/signup">Register Here</a>
-                </div>
-            </div>
+
+            {% if request.args.get("message") %}
+            <h1 style="color: green;">{{ request.args.get("message") }}</h1>
+            {% else %}
+
+            <h1>Welome Back >< </h1>
+                    {% endif %}
+                    <div class="email">
+                        <label for="email">Enter Your Email* </label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div class="password">
+                        <label for="password">Enter Your Password* </label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <div class="options">
+                        <input type="submit" value="login">
+                        <div class="register-account">
+                            Don't have account yet?<a href="/signup">Register Here</a>
+                        </div>
+                    </div>
         </form>
     </div>
 </body>
+
 </html>

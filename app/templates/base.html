@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/04be286e27.js" crossorigin="anonymous"></script>
     <title>{% block title %}{% endblock %}</title>
     <style>
-        *{
+        * {
             width: 100%;
             margin: auto;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html, body{
+        html,
+        body {
             height: 100%;
+            overflow: hidden;
         }
 
-        .container{
+        .container {
             height: 100%;
             background-color: rgb(240, 210, 210);
+            overflow: scroll;
         }
 
-        .container .search{
+        .container .search {
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
         }
-        .search .header{
+
+        .search .header {
             width: fit-content;
             font-family: cursive;
             font-weight: bold;
             font-size: 1.5em;
         }
-        .search .search-input{
+
+        .search .search-input {
             width: 90%;
         }
 
-        .search-input input{
+        .search-input input {
             border-radius: 20px;
             border: none;
             padding: 10px;
         }
-        .container .nav{
+
+        .container .nav {
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -51,22 +58,23 @@
             box-shadow: 0 0 10px;
         }
 
-        .nav .nav-item{
+        .nav .nav-item {
             width: 30%;
             text-align: center;
             margin: 10px auto;
         }
 
-        .nav-item i{
+        .nav-item i {
             font-size: 1.5em;
             color: rgba(15, 12, 12, 0.753);
         }
 
-        .nav .comment{
+        .nav .comment {
             position: relative;
             top: -9px;
         }
-        .comment .count{
+
+        .comment .count {
             position: relative;
             top: 10px;
             left: 10px;
@@ -77,15 +85,14 @@
         }
 
 
-        .display{
+        .display {
             height: 100%;
             background-color: rgb(240, 210, 210);
             overflow: scroll;
         }
-
-
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="search">
@@ -112,35 +119,11 @@
         <!-- nav -->
 
         <div class="display" id="display">
-            
+
         </div>
         <!-- display -->
     </div>
-    <script>
-        const tabs = document.querySelectorAll(".nav .nav-item");
-        window.onload = ()=>{
-            // default open home page starting window.onload
-            fetch("/home", {
-                    method: "GET",
-                })
-                .then( response => response.text() )
-                .then( data => {
-                    document.getElementById("display").innerHTML = data;
-                })
-                .catch( error => console.error("Error: ", error));
-        }
-        tabs.forEach( tab=> {
-            tab.addEventListener("click", (e)=>{
-                fetch("/" + tab.id, {
-                    method: "GET",
-                })
-                .then( response => response.text() )
-                .then( data => {
-                    document.getElementById("display").innerHTML = data;
-                })
-                .catch( error => console.error("Error: ", error));
-            });
-        })
-    </script>
+    <script src="{{ url_for('static', filename='js/index.js' )}}"></script>
 </body>
+
 </html>

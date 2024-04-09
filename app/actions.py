@@ -87,6 +87,10 @@ def upload_post():
             }
             db.session.close()
             return jsonify(response_data)
+        return jsonify({
+            "status": 204,
+            "message": "Caption is empty"
+        })
     return render_template("errors/method_not_allowed.html")
 #
 # image upload (/action/upload_image)

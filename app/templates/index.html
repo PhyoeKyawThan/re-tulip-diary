@@ -1,138 +1,292 @@
-<style>
-    .upload-post-area {
-        background-color: rgba(0, 0, 0, 0.322);
-        padding: 10px;
-        width: 95%;
-        border-radius: 10px;
-        display: flex;
-        margin: 10px auto;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    .upload-post-area .profile {
-        width: 60px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .post-area {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 95%;
+            background-color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            display: none;
+        }
 
-    .upload-post-area .profile img {
-        width: 100%;
-        height: 100%;
-    }
+        .post-area .back i{
+            font-size: 1.5em;
+            cursor: pointer;
+        }
 
-    .upload-post-area .post-caption-area {
-        margin: 10px;
-    }
+        .post-area label {
+            width: 100%;
+            display: block;
+            text-align: center;
+            background-color: rgba(128, 128, 128, 0.329);
+            padding: 10px;
+        }
 
-    .post-caption-area input {
-        padding: 10px;
-        border-radius: 20px;
-        border: none;
-    }
+        .post-area input[type=submit] {
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            font-weight: bold;
+        }
 
-    /* post area */
+        .post-area label i {
+            font-size: 1.5em;
+        }
 
-    .posts {
-        width: 90%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .upload-post-area {
+            background-color: rgba(0, 0, 0, 0.322);
+            padding: 10px;
+            width: 95%;
+            border-radius: 10px;
+            display: flex;
+            margin: 10px auto;
+        }
 
-    .posts .post {
-        margin: 10px;
-        display: flex;
-        flex-direction: column;
-        background-color: rgb(218, 189, 189);
-        padding: 10px;
-        border-radius: 10px;
-    }
+        .upload-post-area .profile {
+            width: 60px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
 
-    .post .detail {
-        display: flex;
-        margin: 10px;
-    }
+        .upload-post-area .profile img {
+            width: 100%;
+            height: 100%;
+        }
 
-    .post .detail .profile {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        overflow: hidden;
-        background-color: white;
-    }
+        .upload-post-area .post-caption-area {
+            margin: 10px;
+        }
 
-    .detail .profile img {
-        width: 100%;
-        height: 100%;
-    }
+        .post-caption-area input {
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+        }
 
-    .detail .username {
-        margin: 10px;
-        font-size: 0.8em;
-        font-weight: bold;
-    }
+        /* post area */
 
-    .post .caption {
-        font-size: 0.8em;
-        height: 80px;
-        overflow: scroll;
-        text-align: start;
-    }
+        .posts {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .post .post-image {
-        width: 90%;
-    }
+        .posts .post {
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(218, 189, 189);
+            padding: 10px;
+            border-radius: 10px;
+        }
 
-    .post .comments {
-        text-decoration: underline;
-    }
+        .post .detail {
+            display: flex;
+            margin: 10px;
+        }
 
-    .post .comment {
-        display: flex;
-        margin: 10px auto;
-    }
+        .post .detail .profile {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: white;
+        }
 
-    .post .comment .comment-input {
-        width: 80%;
-    }
+        .detail .profile img {
+            width: 100%;
+            height: 100%;
+        }
 
-    .comment-input input {
-        padding: 5px;
-        border-radius: 20px;
-        border: none;
-    }
+        .detail .username {
+            margin: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
 
-    .post .comment .comment-submit-icon {
-        width: 50px;
-    }
-</style>
-<div class="upload-post-area">
-    <div class="profile">
-        <img src="../static/images/post/Screenshot_2.png" alt="profile" srcset="">
+        .post .caption {
+            font-size: 0.8em;
+            max-height: 80px;
+            overflow: scroll;
+            text-align: start;
+        }
+
+        .post .post-image {
+            width: 90%;
+        }
+
+        .post .comments {
+            border-top: 1px solid gray;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .post .comment {
+            display: flex;
+            margin: 10px auto;
+        }
+
+        .post .comment .comment-input {
+            width: 80%;
+        }
+
+        .comment-input input {
+            padding: 5px;
+            border-radius: 20px;
+            border: none;
+        }
+
+        .post .comment .comment-submit-icon {
+            width: 50px;
+        }
+
+        .comment-section {
+            display: none;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-color: white;
+        }
+
+        .comment-section .comment-display {
+            height: 100%;
+            overflow: scroll;
+        }
+
+        .comment-section .comment-display .comment {
+            max-height: 150px;
+            background-color: rgba(190, 180, 180, 0.589);
+            width: 95%;
+            border-radius: 10px;
+            margin: 10px auto;
+        }
+
+        .comment-section .comment-display .comment .info {
+            display: flex;
+        }
+
+        .comment .info .profile {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        .info .profile img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .info .username {
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .comment-section .comment-display .comment .text {
+            font-family: monospace;
+            padding: 10px;
+            max-height: 200px;
+            overflow: scroll;
+            font-size: 0.9em;
+        }
+
+        .comment-section .comment-input-section {
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            background-color: white;
+            padding: 10px;
+        }
+
+        .comment-section .comment-input-section .comment-input {
+            width: 80%;
+        }
+
+        .comment-section input {
+            border: 1px solid rgb(70, 58, 58);
+            padding: 10px;
+        }
+
+        .comment-section .comment-input-section .comment-submit-icon {
+            width: 50px;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upload-post-area">
+        <div class="profile">
+            <img src="../static/images/post/Screenshot_2.png" alt="profile" srcset="">
+        </div>
+        <div class="post-caption-area">
+            <input type="text" name="caption" id="caption-btn" placeholder="What's on your mind?">
+        </div>
     </div>
-    <div class="post-caption-area">
-        <input type="text" name="caption" id="caption" placeholder="What's on your mind?">
-    </div>
-</div>
 
-<div class="posts">
-    <div class="post">
-        <div class="detail">
-            <div class="profile">
-                <img src="../static/images/post/Screenshot_2.png" alt="profile" srcset="">
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post">
+            <div class="detail">
+                <div class="profile">
+                    <img src="{{ post.profile_uri }}" alt="profile" srcset="">
+                </div>
+                <div class="username">{{ post.username }}</div>
             </div>
-            <div class="username">DomAK</div>
+            {% if post.caption %}
+            <div class="caption">{{ post.caption }}</div>
+            {% endif %}
+            {% if post.image_uri %}
+            <div class="post-image">
+                <img src="{{ post.image_uri }}" alt="">
+            </div>
+            {% endif %}
+            <div class="comments" id="{{ post.post_id }}">Comments</div>
+            <div class="comment">
+                <div class="comment-input">
+                    <input type="text" name="comment" id="comment" placeholder="Leave a comment..">
+                </div>
+                <div class="comment-submit-icon">
+                    <i class="fa-regular fa-paper-plane"></i>
+                </div>
+            </div>
         </div>
-        <div class="caption">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste atque natus repellendus.
-            Magnam exercitationem, nihil ad error consectetur accusantium dolores nam, doloremque ipsam voluptatibus
-            itaque esse consequuntur similique delectus deleniti!</div>
-        <div class="post-image">
-            <img src="../static/images/post/Screenshot_2.png" alt="">
+        {% endfor %}
+
+    </div>
+    <div class="comment-section" id="comment-section">
+        <div class="comment-display" id="comment-display">
+            <!-- <div class="comment">
+                <div class="info">
+                    <div class="profile">
+                        <img src="../static/images/post/Screenshot_2.png" alt="">
+                    </div>
+                    <div class="username">DomAK</div>
+                </div>
+                <div class="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum modi itaque
+                    pariatur,
+                    odit ipsum magni unde asperiores error tenetur, sunt facere ut adipisci repudiandae eveniet
+                    veritatis
+                    voluptatum earum totam corporis.
+                </div>
+            </div> -->
+
+            <!-- comments will appear here -->
         </div>
-        <div class="comments">Comments</div>
-        <div class="comment">
+        <div class="comment-input-section">
             <div class="comment-input">
                 <input type="text" name="comment" id="comment" placeholder="Leave a comment..">
             </div>
@@ -141,4 +295,16 @@
             </div>
         </div>
     </div>
-</div>
+
+    <div class="post-area">
+        <div class="back"><i class="fa-solid fa-xmark" id="back"></i></div>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <textarea name="caption" id="caption" cols="30" rows="5" placeholder="What's on your mind?"></textarea>
+            <label for="image"><i class="fa-regular fa-image"></i></label>
+            <input type="file" id="image" name="image" hidden>
+            <input type="submit" value="Save" id="save">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -24,7 +24,8 @@ def home():
                 "username": posted_user.username,
                 "caption": post.caption,
                 "image_uri": post.image_uri,
-                "posted_date": post.posted_date
+                "posted_date": post.posted_date,
+                "comment_count": len(post.comments)
             }
             post_datas.append(data)
         return render_template('index.html', posts=post_datas, profile_uri=User.query.filter_by( user_id = user_id).first().profile_uri)

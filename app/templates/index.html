@@ -255,7 +255,7 @@
                 <img src="{{ post.image_uri }}" alt="">
             </div>
             {% endif %}
-            <div class="comments" id="{{ post.post_id }}">Comments</div>
+            <div class="comments" id="{{ post.post_id }}">Comments - <b><small>{{ post.comment_count }}</small></b></div>
             <div class="comment">
                 <div class="comment-input">
                     <input type="text" name="comment" id="comment_text" placeholder="Leave a comment..">

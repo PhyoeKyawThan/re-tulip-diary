@@ -36,6 +36,7 @@ def comment():
     if request.method == "POST":
         # get json data from user
         comment_data = request.get_json()
+        print(comment_data)
         # check whether the post is exists or not
         post_exists = Post.query.filter_by(post_id = comment_data["post_id"]).first()
         # if post is exists 

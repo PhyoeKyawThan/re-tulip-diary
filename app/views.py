@@ -74,6 +74,7 @@ def get_all_comments():
                 "comment_text": comment.text
             }
             datas.append(data)
+            
         return jsonify({
             "status": 200,
             "comments": datas,

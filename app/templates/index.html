@@ -17,7 +17,7 @@
             display: none;
         }
 
-        .post-area .back i{
+        .back i{
             font-size: 1.5em;
             cursor: pointer;
         }
@@ -160,7 +160,7 @@
         }
 
         .comment-section .comment-display {
-            height: 100%;
+            height: 80%;
             overflow: scroll;
         }
 
@@ -203,6 +203,7 @@
         }
 
         .comment-section .comment-input-section {
+            height: 10%;
             position: fixed;
             bottom: 0;
             display: flex;
@@ -257,10 +258,10 @@
             <div class="comments" id="{{ post.post_id }}">Comments</div>
             <div class="comment">
                 <div class="comment-input">
-                    <input type="text" name="comment" id="comment" placeholder="Leave a comment..">
+                    <input type="text" name="comment" id="comment_text" placeholder="Leave a comment..">
                 </div>
                 <div class="comment-submit-icon">
-                    <i class="fa-regular fa-paper-plane"></i>
+                    <i class="fa-regular fa-paper-plane" onclick="submitComment('{{post.post_id}}')"></i>
                 </div>
             </div>
         </div>
@@ -268,6 +269,7 @@
 
     </div>
     <div class="comment-section" id="comment-section">
+        <div class="back"><i class="fa-solid fa-xmark" onclick="back('comment-section')"></i></div>
         <div class="comment-display" id="comment-display">
             <!-- <div class="comment">
                 <div class="info">
@@ -288,10 +290,10 @@
         </div>
         <div class="comment-input-section">
             <div class="comment-input">
-                <input type="text" name="comment" id="comment" placeholder="Leave a comment..">
+                <input type="text" name="comment" id="comment-text-in-section" placeholder="Leave a comment..">
             </div>
             <div class="comment-submit-icon">
-                <i class="fa-regular fa-paper-plane"></i>
+                <i class="fa-regular fa-paper-plane" onclick="submitCommentInSection()"></i>
             </div>
         </div>
     </div>

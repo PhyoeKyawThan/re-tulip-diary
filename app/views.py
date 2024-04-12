@@ -10,6 +10,7 @@ def index():
         return render_template('base.html', title="HOME")
     return redirect(url_for("views.login", message=message))
 
+# home page text/html data with posts
 @views.route("/home")
 def home():
     state, message, user_id = check_user()
@@ -52,6 +53,7 @@ def signup():
 def login():
     return render_template("login.html")
 
+# get comments data from post using unique post_id
 @views.route("/get_all_comments", methods=["POST", "GET"])
 def get_all_comments():
     """
@@ -69,7 +71,9 @@ def get_all_comments():
             data = {
                 "profile_uri": related_user.profile_uri,
                 "username": related_user.username,
-                "comment_text": comment.text
+                "comment_text": comment.text,
+                "commented_date": comment.commented_date,
+                "is_check": comment.is_check
             }
             datas.append(data)
             
@@ -80,6 +84,15 @@ def get_all_comments():
             })
     return redirect(url_for("views.login", message=message))
     
+@views.route("/check_noti")
+def check_notification():
+    pass
+
+@views.route("/stram_notification")
+def stram_notification():
+    state, message, user_id = check_user()
+    if state:
+        pass
 
 if __name__ == '__main__':
     app.run(debug=True)

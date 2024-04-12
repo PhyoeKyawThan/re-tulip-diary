@@ -30,6 +30,8 @@ class Comment(db.Model):
     __tablename__ = "comment"
     comment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     text = db.Column(db.String(200), nullable=False)
+    commented_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_check = db.Column(db.Boolean, nullable=False, default=False)
     post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"), nullable=False)
 

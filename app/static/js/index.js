@@ -84,12 +84,14 @@ function Home_page() {
 }
 // add onclick function for each comment submitted from outside of comment-section 
 function submitComment(post_id) {
-    requestComment(post_id, document.getElementById("comment_text"));
+    requestComment(post_id, document.getElementById("comment-text-" + post_id));
+    Home_page();
 }
 
 function submitCommentInSection() {
     const text = document.getElementById("comment-text-in-section");
     requestComment(postID, text);
+    Home_page();
 }
 Home_page();
 // tab for switching pages
@@ -132,7 +134,7 @@ function requestComment(post_id, text) {
             .then(data => {
                 if( data.status === 200 ){
                     // update comment list
-                    showComment(postID);
+                    postID > 0 && showComment(postID);
                 }
             })
             .catch(error => console.error("Error: ", error));
@@ -157,7 +159,7 @@ function showComment(post_id) {
                     <div class="profile">
                         <img src="${comment.profile_uri}" alt="">
                     </div>
-                    <div class="username">${comment.username}</div>
+                    <div class="username">${comment.username} <br> <small class="commented-date">${comment.commented_date}</small></div>
                 </div>
                 <div class="text">${comment.comment_text}</div>
             </div>`;

@@ -44,14 +44,6 @@ def profile():
         return render_template('profile.html', title='Profile')
     return redirect(url_for("views.login", message=message))
 
-@views.route("/upload")
-def upload():
-    return render_template("upload.html")
-
-@views.route("/comment")
-def comment():
-    return render_template("comment.html")
-
 @views.route('/signup')
 def signup():
     return render_template("signup.html")
@@ -62,6 +54,11 @@ def login():
 
 @views.route("/get_all_comments", methods=["POST", "GET"])
 def get_all_comments():
+    """
+    request parem: post_id( int ) from url pattern para
+    response: related comment data with respective post_id 
+    summery: will take post_id( int ) from requested parem and returning respective comments if post_id exists
+    """
     state, message, user_id = check_user()
     if state:
         post_id = request.args.get("post_id")

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Notifications</title>
+    <style>
+        .info { color: blue; }
+        .warning { color: orange; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div id="notifications"></div>
+
+    <script>
+        // Function to handle SSE
+        function startSSE() {
+            var eventSource = new EventSource("/notifications");
+
+            eventSource.onmessage = function(event) {
+                var notification = JSON.parse(event.data);
+                displayNotification(notification);
+            };
+
+            eventSource.onerror = function(event) {
+                console.error("SSE error:", event);
+                // Handle SSE error if needed
+            };
+        }
+
+        // Function to display notification
+        function displayNotification(notification) {
+            var notificationDiv = document.getElementById("notifications");
+            var notificationElement = document.createElement("div");
+            notificationElement.className = notification.type;
+            notificationElement.textContent = notification.message;
+            notificationDiv.appendChild(notificationElement);
+        }
+
+        // Start SSE when the page loads
+        document.addEventListener("DOMContentLoaded", startSSE);
+    </script>
+</body>
+</html>

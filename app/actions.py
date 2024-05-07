@@ -4,8 +4,8 @@ from .models import Post, User, Comment
 from .login_required import check_user
 from . import db
 import os
-actions = Blueprint("actions", __name__)
 
+actions = Blueprint("actions", __name__)
 # function for checking file extension
 def allowed_file(filename: str):
     """
@@ -45,6 +45,7 @@ def comment():
             db.session.add(new_comment)
             db.session.commit()
             db.session.close()
+            socket.emit("commented", f"{comment_data['post_id']}")
             return jsonify({
                 "status": 200, 
                 "message": "Commented"

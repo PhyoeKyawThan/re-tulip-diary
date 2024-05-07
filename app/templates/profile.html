@@ -1,1 +1,120 @@
-<h1>This is profilep</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ current_user["username "]}} - Profile</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-detail">
+        <div class="profile">
+          <div class="image">
+            <img
+              src="../static/images/post/wallpaperflare.com_wallpaper.jpg"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div class="name">DomAK</div>
+          <div class="email">
+            <small>domak@gmail.com</small>
+          </div>
+        </div>
+      </div>
+      <!-- profile detail -->
+      <div class="user-posts">
+        <div class="header">
+          <h3>Your Posts</h3>
+        </div>
+        <!-- header -->
+
+        <div class="posts">
+          <!-- post -->
+          <div class="post">
+            <div class="detail">
+              <div class="profile">
+                <img
+                  src="../static/images/post/wallpaperflare.com_wallpaper.jpg"
+                  alt="profile"
+                  srcset=""
+                />
+              </div>
+              <div class="username">DomAK</div>
+            </div>
+            <div class="caption">My name is Sherlock</div>
+            <div class="post-image">
+              <img
+                src="../static/images/post/wallpaperflare.com_wallpaper.jpg"
+                alt=""
+              />
+            </div>
+            <div class="comments" id="{{ post.post_id }}">
+              Comments - <b><small>{{ post.comment_count }}</small></b>
+            </div>
+            <div class="comment">
+              <div class="comment-input">
+                <input
+                  type="text"
+                  name="comment"
+                  id="comment-text-{{ post.post_id }}"
+                  placeholder="Leave a comment.."
+                />
+              </div>
+              <div class="comment-submit-icon">
+                <i
+                  class="fa-regular fa-paper-plane"
+                  onclick="submitComment('{{post.post_id}}')"
+                ></i>
+              </div>
+            </div>
+            </div>
+            <!-- post -->
+
+            <div class="post">
+                <div class="detail">
+                  <div class="profile">
+                    <img
+                      src="../static/images/post/wallpaperflare.com_wallpaper.jpg"
+                      alt="profile"
+                      srcset=""
+                    />
+                  </div>
+                  <div class="username">DomAK</div>
+                </div>
+                <div class="caption">My name is Sherlock</div>
+                <div class="post-image">
+                  <img
+                    src="../static/images/post/wallpaperflare.com_wallpaper.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="comments" id="{{ post.post_id }}">
+                  Comments - <b><small>{{ post.comment_count }}</small></b>
+                </div>
+                <div class="comment">
+                  <div class="comment-input">
+                    <input
+                      type="text"
+                      name="comment"
+                      id="comment-text-{{ post.post_id }}"
+                      placeholder="Leave a comment.."
+                    />
+                  </div>
+                  <div class="comment-submit-icon">
+                    <i
+                      class="fa-regular fa-paper-plane"
+                      onclick="submitComment('{{post.post_id}}')"
+                    ></i>
+                  </div>
+                </div>
+
+
+          </div>
+        </div>
+      </div>
+      <!-- posted -->
+    </div>
+  </body>
+</html>
